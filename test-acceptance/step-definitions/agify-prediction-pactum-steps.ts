@@ -20,6 +20,22 @@ export class AgifyPredictionPactumSteps {
     this.agifyApiResponse = await spec().get(apiUrl).useLogLevel("ERROR");
   }
 
+  @when(
+    "I send GET requests more that allocated quota",
+    "Too many requests",
+    20000
+  )
+  public async sendRequestsBeyondQuota() {
+    const apiUrl = `${this.agifyApi}?name=billybob`;
+    for (let i = 0; i < 20; i++) {
+      try {
+        this.agifyApiResponse = await spec().get(apiUrl).useLogLevel("ERROR");
+      } catch (error) {
+        // Do nothing
+      }
+    }
+  }
+
   @when("I send GET request without name param")
   public async getPredictedAgeWithoutNameParameter() {
     const apiUrl = `${this.agifyApi}?`;
@@ -31,20 +47,24 @@ export class AgifyPredictionPactumSteps {
     expect(this.agifyApiResponse, spec).should.have.status(statusCode);
   }
 
-  @then(/^should receive a response with ([^"]*) age$/)
-  public verifyAge(validOrInvalid: string) {
-    switch (validOrInvalid.toLowerCase()) {
-      case "valid":
-        assert.isTrue(Utils.isValidAge(this.agifyApiResponse.body?.age));
-        break;
-      case "invalid":
-        assert.isFalse(Utils.isValidAge(this.agifyApiResponse.body?.age));
-        break;
-      default:
-        throw new Error(
-          'Invalid feature input. The options are "valid" or "invalid"'
-        );
-    }
+  @then("should receive a response with predicted age")
+  public verifyAge() {
+    assert.isTrue(Utils.isValidAge(this.agifyApiResponse.body?.age));
+  }
+
+  @then("should receive a response with no predicted age")
+  public verifyNoPredictedAge() {
+    assert.isNull(this.agifyApiResponse.body?.age);
+  }
+
+  @then("the response should include a count of occurrences")
+  public verifyNameCount() {
+    assert.isAbove(this.agifyApiResponse.body?.count, 0);
+  }
+
+  @then("the response should include a count of 0")
+  public verifyNoOccuranceOfName() {
+    assert.equal(this.agifyApiResponse.body?.count, 0);
   }
 
   @then("the API should respond within stipulated time of {int} ms")

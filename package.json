@@ -9,6 +9,7 @@
   "scripts": {
     "test": "cucumber-js --config test-acceptance/cucumber.js -p default",
     "test:smoketests": "cucumber-js --config test-acceptance/cucumber.js -p smoketests",
+    "test:nfr": "cucumber-js --config test-acceptance/cucumber.js -p nfr",
     "test:watch": "npm-watch test",
     "watch": "npm-watch"
   },

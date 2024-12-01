@@ -1,0 +1,7 @@
+{
+  "cucumber.features": ["test-acceptance/features/*.feature"],
+  "cucumber.glue": [
+    "test-acceptance/step-definitions/*.ts",
+    "**/step-definitions/*.ts"
+  ]
+}

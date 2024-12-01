@@ -1,0 +1,43 @@
+{
+  "name": "agify-api-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "test": "cucumber-js --config test-acceptance/cucumber.js -p default",
+    "test:smoketests": "cucumber-js --config test-acceptance/cucumber.js -p smoketests",
+    "test:watch": "npm-watch test",
+    "watch": "npm-watch"
+  },
+  "watch": {
+    "test": {
+      "patterns": [
+        "test-acceptance/features",
+        "test-acceptance/step-definitions"
+      ],
+      "extensions": "js,ts,feature"
+    }
+  },
+  "devDependencies": {
+    "@cucumber/pretty-formatter": "^1.0.0",
+    "@types/chai": "^4.3.10",
+    "@types/cucumber": "^4.0.5",
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^18.14.6",
+    "chai": "^4.3.10",
+    "cucumber-tsflow": "^4.0.0-rc.7",
+    "npm-watch": "^0.11.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.1",
+    "axios-time": "^1.0.0",
+    "lodash": "^4.17.21",
+    "mocha": "^10.2.0",
+    "pactum": "^3.5.1"
+  }
+}

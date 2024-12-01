@@ -4,7 +4,7 @@ module.exports = {
     requireModule: ["ts-node/register"],
     require: ["test-acceptance/step-definitions/**/*.ts"],
     // Use tags if you want to run a specific set of tests
-    // tags: "@all",
+    tags: "not @ignore",
     format: [
       "@cucumber/pretty-formatter",
       "html:reports/agify-cucumber-test-report.html",
